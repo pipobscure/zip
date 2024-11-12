@@ -1,0 +1,20 @@
+{
+	"name": "@p421/zip",
+	"version": "0.0.0",
+	"description": "Zip Archive Map",
+	"type": "module",
+	"main": "dist/ziparchive.js",
+	"scripts": {
+		"test": "node --test",
+		"build": "tsc",
+		"format": "biome format --write src/ *.json"
+	},
+	"keywords": ["Zip", "Archive", "Extract"],
+	"author": "Philipp Dunkel <pip@pipobscure.com>",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.9.0",
+		"typescript": "^5.6.3"
+	}
+}
