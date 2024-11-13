@@ -3,16 +3,21 @@
 	"version": "0.0.0",
 	"description": "Zip Archive Map",
 	"type": "module",
-	"main": "dist/ziparchive.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"test": "node --test",
 		"build": "tsc",
 		"format": "biome format --write src/ *.json",
 		"lint": "biome lint --write src/ *.json",
-		"postversion": "npm publish",
+		"postversion": "npm publish --access public",
+		"prepublishOnly": "rm -rf dist/ && tsc --build --force",
 		"postpublish": "git push --follow-tags"
 	},
-	"keywords": ["Zip", "Archive", "Extract"],
+	"keywords": [
+		"Zip",
+		"Archive",
+		"Extract"
+	],
 	"author": "Philipp Dunkel <pip@pipobscure.com>",
 	"license": "ISC",
 	"devDependencies": {
