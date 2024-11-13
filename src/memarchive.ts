@@ -1,22 +1,22 @@
 import { readFileSync } from 'node:fs';
 import type { ReadMap } from './readmap.js';
-import { EndCentralDirectory } from './ecd.js';
+import { EndCentralDirectory } from './ecdh.js';
 import { CentralDirectoryFileHeader } from './cdfh.js';
-import { ZipEntry } from './zipentry.js';
+import { MemArchiveEntry } from './memarchiveentry.js';
 
-export class ZipArchive implements ReadMap<Buffer> {
+export class MemArchive implements ReadMap<Buffer> {
 	#view: DataView;
 	#ecd;
 	constructor(buffer: ArrayBuffer, byteOffset = 0, byteLength = buffer.byteLength) {
 		this.#view = new DataView(buffer, byteOffset, byteLength);
 		this.#ecd = new EndCentralDirectory(this.#view);
 	}
-	#cache: Map<string, ZipEntry> = new Map();
+	#cache: Map<string, MemArchiveEntry> = new Map();
 	*[Symbol.iterator]() {
 		let pos = this.#ecd.directoryOffset;
 		while (pos < this.#ecd.offset) {
 			const header = new CentralDirectoryFileHeader(this.#view, pos);
-			const entry = new ZipEntry(this.#view, header);
+			const entry = new MemArchiveEntry(this.#view, header);
 			this.#cache.set(entry.name, entry);
 			yield entry;
 			pos += header.byteLength;
@@ -41,7 +41,7 @@ export class ZipArchive implements ReadMap<Buffer> {
 	*values() {
 		const source = this.#cache.size ? this.#cache.values() : [...this];
 		for (const val of source) {
-            if (!val.byteLength) continue;
+			if (!val.byteLength) continue;
 			yield val.content as Buffer;
 		}
 	}
@@ -53,14 +53,14 @@ export class ZipArchive implements ReadMap<Buffer> {
 	}
 
 	static fromArrayBuffer(buffer: ArrayBuffer, byteOffset = 0, byteLength = buffer.byteLength) {
-		const archive = new ZipArchive(buffer, byteOffset, byteLength);
+		const archive = new MemArchive(buffer, byteOffset, byteLength);
 		return archive;
 	}
 	static fromBuffer(buffer: Buffer) {
-		return ZipArchive.fromArrayBuffer(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+		return MemArchive.fromArrayBuffer(buffer.buffer, buffer.byteOffset, buffer.byteLength);
 	}
 	static open(path: string) {
 		const buffer = readFileSync(path);
-		return ZipArchive.fromBuffer(buffer);
+		return MemArchive.fromBuffer(buffer);
 	}
 }

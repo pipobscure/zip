@@ -2,7 +2,7 @@ import { inflateRawSync } from 'node:zlib';
 import type { CentralDirectoryFileHeader } from './cdfh.js';
 import { LocalFileHeader } from './lfh.js';
 
-export class ZipEntry {
+export class MemArchiveEntry {
 	#view;
 	#central;
 	#local;
