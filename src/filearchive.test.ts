@@ -1,25 +1,22 @@
 import { describe, it, before, after } from 'node:test';
 import * as assert from 'node:assert/strict';
-import { MemArchive } from './memarchive.js';
+import { FileArchive } from './filearchive.js';
 import { execSync } from 'node:child_process';
 import { readdirSync, readFileSync, unlinkSync } from 'node:fs';
 
-const fname = 'archive.zip';
-describe('MemArchive', () => {
+const fname = 'farchive.zip';
+describe('FileArchive', () => {
 	before(() => {
 		try {
 			unlinkSync(fname);
 		} catch {}
 		execSync(`zip -r ${fname} src/`);
 	});
-	let archive: MemArchive;
-	it('MemArchive is a function', () => assert.equal(typeof MemArchive, 'function'));
-	it('MemArchive.fromBuffer is a function', () => assert.equal(typeof MemArchive.fromBuffer, 'function'));
-	it('MemArchive.fromArrayBuffer is a function', () => assert.equal(typeof MemArchive.fromArrayBuffer, 'function'));
-	it('MemArchive.open is a function', () => assert.equal(typeof MemArchive.open, 'function'));
-	it('MemArchive.open creates an instance', () => {
-		archive = MemArchive.open(fname);
-		assert.ok(archive instanceof MemArchive);
+	let archive: FileArchive;
+	it('FileArchive is a function', () => assert.equal(typeof FileArchive, 'function'));
+	it('new FileArchive(path) creates an instance', () => {
+		archive = new FileArchive(fname);
+		assert.ok(archive instanceof FileArchive);
 	});
 	it('archive.has is a function', () => assert.equal(typeof archive?.has, 'function'));
 	it('archive.get is a function', () => assert.equal(typeof archive?.get, 'function'));
@@ -41,6 +38,7 @@ describe('MemArchive', () => {
 		}
 	});
 	after(() => {
+		archive.close();
 		unlinkSync(fname);
 	});
 });

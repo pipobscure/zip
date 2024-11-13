@@ -1,5 +1,5 @@
 {
-	"name": "@p421/zip",
+	"name": "@pipobscure/zip",
 	"version": "0.0.0",
 	"description": "Zip Archive Map",
 	"type": "module",
@@ -7,7 +7,10 @@
 	"scripts": {
 		"test": "node --test",
 		"build": "tsc",
-		"format": "biome format --write src/ *.json"
+		"format": "biome format --write src/ *.json",
+		"lint": "biome lint --write src/ *.json",
+		"postversion": "npm publish",
+		"postpublish": "git push --follow-tags"
 	},
 	"keywords": ["Zip", "Archive", "Extract"],
 	"author": "Philipp Dunkel <pip@pipobscure.com>",
