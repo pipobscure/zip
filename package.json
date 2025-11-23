@@ -34,5 +34,9 @@
 		"@pipobscure/biome": "^1.1.2",
 		"@types/node": "^24.5.2",
 		"typescript": "^5.9.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pipobscure/zip"
 	}
 }
