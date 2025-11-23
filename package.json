@@ -1,18 +1,24 @@
 {
 	"name": "@pipobscure/archive",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Compressed Zip Archive",
 	"keywords": [
 		"Zip",
 		"Archive",
 		"Compressed"
 	],
-	"license": "ISC",
+	"license": "EUPL-1.2",
 	"author": "Philipp Dunkel <pip@pipobscure.com>",
 	"type": "module",
-	"exports": "./src/zip.js",
+	"exports": {
+		".": "./src/zip.js",
+		"./file": "./src/file.js",
+		"./buffer": "./src/buffer.js"
+	},
 	"files": [
-		"src/zip.js"
+		"src/zip.js",
+		"src/file.js",
+		"src/buffer.ts"
 	],
 	"scripts": {
 		"test": "node --test src/*.test.ts",
