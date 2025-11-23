@@ -17,8 +17,11 @@
 	},
 	"files": [
 		"src/zip.js",
+		"src/zip.d.ts",
 		"src/file.js",
-		"src/buffer.ts"
+		"src/file.d.ts",
+		"src/buffer.js",
+		"src/buffer.d.ts"
 	],
 	"scripts": {
 		"test": "node --test src/*.test.ts",
