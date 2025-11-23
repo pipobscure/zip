@@ -27,7 +27,8 @@
 		"test": "node --test src/*.test.ts",
 		"check": "biome check --write",
 		"build": "tsc --build",
-		"clean": "rm -f src/*.js src/*.d.ts"
+		"clean": "rm -f src/*.js src/*.d.ts",
+		"postversion": "git push --follow-tags"
 	},
 	"devDependencies": {
 		"@pipobscure/biome": "^1.1.2",
