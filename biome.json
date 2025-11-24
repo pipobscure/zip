@@ -2,11 +2,18 @@
 	"$schema": "https://biomejs.dev/schemas/2.3.0/schema.json",
 	"extends": ["node_modules/@pipobscure/biome/biome.json"],
 	"files": {
-		"includes": ["src/", "*.json"]
+		"includes": ["src/**/*.ts", "*.json", "!src/**/*.d.ts"]
 	},
 	"assist": {
 		"actions": {
 			"source": { "organizeImports": "off" }
+		}
+	},
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noExplicitAny": "off"
+			}
 		}
 	}
 }
